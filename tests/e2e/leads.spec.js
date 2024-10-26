@@ -1,11 +1,13 @@
-// @ts-check
-const { test, expect } = require('@playwright/test');
-const { LandingPage } = require('./pages/LandingPage')
+const { test } = require('@playwright/test');
+const { LandingPage } = require('../pages/LandingPage')
+const { Toast } = require('../pages/Components')
 
 let landingPage
+let toast
 
 test.beforeEach(async ({ page }) => {
   landingPage = new LandingPage(page)
+  toast = new Toast(page)
 })
 
 test('must register a lead in the waiting queue', async ({ page }) => {
@@ -14,7 +16,7 @@ test('must register a lead in the waiting queue', async ({ page }) => {
   await landingPage.submitLeadForm('Rennan Gimenez', 'contato.rennang@gmail.com')
 
   const message = 'Agradecemos por compartilhar seus dados conosco. Em breve, nossa equipe entrará em contato!'
-  await landingPage.toastHaveText(message)
+  await toast.haveText(message)
 });
 
 test('must not register a lead with wrong email', async ({ page }) => {
