@@ -2,9 +2,13 @@
 const { test, expect } = require('@playwright/test');
 const { LandingPage } = require('./pages/LandingPage')
 
-test('must register a lead in the waiting queue', async ({ page }) => {
-  const landingPage = new LandingPage(page)
+let landingPage
 
+test.beforeEach(async ({ page }) => {
+  landingPage = new LandingPage(page)
+})
+
+test('must register a lead in the waiting queue', async ({ page }) => {
   await landingPage.visit()
   await landingPage.openLeadModal()
   await landingPage.submitLeadForm('Rennan Gimenez', 'contato.rennang@gmail.com')
@@ -14,8 +18,6 @@ test('must register a lead in the waiting queue', async ({ page }) => {
 });
 
 test('must not register a lead with wrong email', async ({ page }) => {
-  const landingPage = new LandingPage(page)
-
   await landingPage.visit()
   await landingPage.openLeadModal()
   await landingPage.submitLeadForm('Rennan Gimenez', 'rennan.gimenez')
@@ -24,8 +26,6 @@ test('must not register a lead with wrong email', async ({ page }) => {
 });
 
 test('must not register when the name is not filled', async ({ page }) => {
-  const landingPage = new LandingPage(page)
-
   await landingPage.visit()
   await landingPage.openLeadModal()
   await landingPage.submitLeadForm('', 'contato.rennang@gmail.com')
@@ -34,18 +34,14 @@ test('must not register when the name is not filled', async ({ page }) => {
 });
 
 test('must not register when the email is not filled', async ({ page }) => {
-  const landingPage = new LandingPage(page)
-
   await landingPage.visit()
   await landingPage.openLeadModal()
   await landingPage.submitLeadForm('Rennan Gimenez', '')
-  
+
   await landingPage.alertHaveText('Campo obrigatório')
 });
 
 test('must not register when the fields are not filled', async ({ page }) => {
-  const landingPage = new LandingPage(page)
-
   await landingPage.visit()
   await landingPage.openLeadModal()
   await landingPage.submitLeadForm('', '')
