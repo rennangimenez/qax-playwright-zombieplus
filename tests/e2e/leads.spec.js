@@ -1,6 +1,5 @@
-// @ts-check
-const { test, expect } = require('@playwright/test');
-const { LandingPage } = require('./pages/LandingPage')
+const { test } = require('@playwright/test');
+const { LandingPage } = require('../pages/LandingPage')
 
 let landingPage
 
