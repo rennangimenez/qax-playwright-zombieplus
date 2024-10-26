@@ -42,3 +42,52 @@ test('must not register a lead with wrong email', async ({ page }) => {
 
   await expect(page.locator('.alert')).toHaveText('Email incorreto')
 });
+
+test('must not register when the name is not filled', async ({ page }) => {
+  await page.goto('http://localhost:3000');
+
+  await page.getByRole('button', { name: /Aperte o play/ }).click()
+
+  await expect(
+    page.getByTestId('modal').getByRole('heading')
+  ).toHaveText('Fila de espera')
+
+  await page.getByPlaceholder('Seu email principal').fill('contato.rennang@gmail.com')
+
+  await page.getByTestId('modal').getByText('Quero entrar na fila!').click()
+
+  await expect(page.locator('.alert')).toHaveText('Campo obrigatório')
+});
+
+test('must not register when the email is not filled', async ({ page }) => {
+  await page.goto('http://localhost:3000');
+
+  await page.getByRole('button', { name: /Aperte o play/ }).click()
+
+  await expect(
+    page.getByTestId('modal').getByRole('heading')
+  ).toHaveText('Fila de espera')
+
+  await page.getByPlaceholder('Seu nome completo').fill('Rennan Gimenez')
+
+  await page.getByTestId('modal').getByText('Quero entrar na fila!').click()
+
+  await expect(page.locator('.alert')).toHaveText('Campo obrigatório')
+});
+
+test('must not register when the fields are not filled', async ({ page }) => {
+  await page.goto('http://localhost:3000');
+
+  await page.getByRole('button', { name: /Aperte o play/ }).click()
+
+  await expect(
+    page.getByTestId('modal').getByRole('heading')
+  ).toHaveText('Fila de espera')
+
+  await page.getByTestId('modal').getByText('Quero entrar na fila!').click()
+
+  await expect(page.locator('.alert')).toHaveText([
+    'Campo obrigatório',
+    'Campo obrigatório'
+  ])
+});
