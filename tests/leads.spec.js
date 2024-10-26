@@ -10,8 +10,8 @@ test('must register a lead in the waiting queue', async ({ page }) => {
     page.getByTestId('modal').getByRole('heading')
   ).toHaveText('Fila de espera')
 
-  await page.getByPlaceholder('Seu nome completo').fill('Rennan Gimenez')
-  await page.getByPlaceholder('Seu email principal').fill('contato.rennang@gmail.com')
+  await page.getByPlaceholder('Informe seu nome').fill('Rennan Gimenez')
+  await page.getByPlaceholder('Informe seu email').fill('contato.rennang@gmail.com')
 
   await page.getByTestId('modal').getByText('Quero entrar na fila!').click()
 
@@ -35,8 +35,8 @@ test('must not register a lead with wrong email', async ({ page }) => {
     page.getByTestId('modal').getByRole('heading')
   ).toHaveText('Fila de espera')
 
-  await page.getByPlaceholder('Seu nome completo').fill('Rennan Gimenez')
-  await page.getByPlaceholder('Seu email principal').fill('rennan.gimenez')
+  await page.getByPlaceholder('Informe seu nome').fill('Rennan Gimenez')
+  await page.getByPlaceholder('Informe seu email').fill('rennan.gimenez')
 
   await page.getByTestId('modal').getByText('Quero entrar na fila!').click()
 
@@ -52,7 +52,7 @@ test('must not register when the name is not filled', async ({ page }) => {
     page.getByTestId('modal').getByRole('heading')
   ).toHaveText('Fila de espera')
 
-  await page.getByPlaceholder('Seu email principal').fill('contato.rennang@gmail.com')
+  await page.getByPlaceholder('Informe seu email').fill('contato.rennang@gmail.com')
 
   await page.getByTestId('modal').getByText('Quero entrar na fila!').click()
 
@@ -68,7 +68,7 @@ test('must not register when the email is not filled', async ({ page }) => {
     page.getByTestId('modal').getByRole('heading')
   ).toHaveText('Fila de espera')
 
-  await page.getByPlaceholder('Seu nome completo').fill('Rennan Gimenez')
+  await page.getByPlaceholder('Informe seu nome').fill('Rennan Gimenez')
 
   await page.getByTestId('modal').getByText('Quero entrar na fila!').click()
 
